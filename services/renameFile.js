@@ -2,19 +2,18 @@ import {rename, readFile } from 'fs/promises';
 
 export const renameFile = async (pathToFile, newFileName) => {
 
-    let alreadyRenamed;
+    const path = `${process.cwd()}\\${pathToFile}`;
+    const newPath = `${process.cwd()}\\${newFileName}`;
+    console.log(path, 1, newPath, 2)
 
     try {
-        alreadyRenamed = await readFile(newFileName);
-    } catch (e) {}
-
-    try {
-        if(alreadyRenamed) {
-            throw error;
-        }      
-        await readFile(pathToFile);
-        await rename(pathToFile, newFileName);
+        const path = `${process.cwd()}\\${pathToFile}`;
+        const newPath = `${process.cwd()}\\${newFileName}`
+        console.log(path)
+    
+        await readFile(path);
+        await rename(path, newPath);
     } catch(error) {
-        console.error('FS operation failed');
+        console.error('Operation failed', error);
     }
 };

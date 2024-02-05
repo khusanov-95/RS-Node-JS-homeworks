@@ -1,22 +1,25 @@
-import { fs } from 'fs/promises';
-import { zlib  } from 'zlib';
+import fs from 'fs';
+import zlib from 'zlib';
 
-export const compressFile = (pathToFile, pathToDestination) => {
+export const decompressFile = (pathToFile, pathToDestination) => {
+    try {
     const readStream = fs.createReadStream(pathToFile);
     const writeStream = fs.createWriteStream(pathToDestination);
     const brotliStream = zlib.createBrotliDecompress();
-    
     readStream.pipe(brotliStream).pipe(writeStream);
-    
-    readStream.on('error', (err) => {
-        console.error('Decompress operation failede:', err);
+
+    readStream.pipe(brotliStream).pipe(writeStream);
+            
+    readStream.on('error', (error) => {
+        console.error('Operation failed', error);
     });
     
-    writeStream.on('finish', () => {
-      console.log(`File decompressed  successfully: ${pathToDestination}`);
-    });
-    
-    writeStream.on('error', (err) => {
-        console.error('Decompress operation failed:', err);
-      });
+    writeStream.on('error', (error) => {
+        console.error('Operation failed', error);
+        });
+    } catch(error) {
+        console.error('Operation failed', error);
+    }
+
 }
+

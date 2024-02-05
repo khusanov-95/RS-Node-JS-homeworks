@@ -1,4 +1,6 @@
-import {argv} from 'node:process'
+import {argv} from 'node:process';
+
+
 
 export const welcomeUser = () => {
     const user = argv.find(value => value.includes("--username"));
@@ -6,8 +8,11 @@ export const welcomeUser = () => {
     const formattedName = userName[0].toUpperCase() + userName.substring(1)
     console.log(`Welcome to the File Manager, ${formattedName}!`);
 
-
-    process.on('exit', () => { // not working
+    function exitHandler() {
         console.log(`Thank you for using File Manager, ${formattedName}, goodbye!`);
-    });
+        process.exit();
+      }
+
+    process.on('exit', exitHandler);
+    process.on('SIGINT', exitHandler); // shows twice
 };

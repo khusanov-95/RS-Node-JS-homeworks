@@ -1,19 +1,15 @@
-import {fs } from 'fs/promises';
+import fs from 'fs';
 
 export const copyFile = async (pathToFile, pathToNewDirectory) => {
-const readStream = fs.createReadStream(pathToFile);
-const writeStream = fs.createWriteStream(pathToNewDirectory);
+const readStream = fs.createReadStream(`${process.cwd()}\\${pathToFile}`);
+const writeStream = fs.createWriteStream(`${process.cwd()}\\${pathToNewDirectory}`);
 
-readStream.on('error', (err) => {
-  console.error('FS operation failede:', err);
+readStream.on('error', (error) => {
+    console.error('Operation failed', error);
 });
 
-writeStream.on('error', (err) => {
-  console.error('FS operation failed:', err);
-});
-
-writeStream.on('finish', () => {
-  console.log('File renamed successfully.');
+writeStream.on('error', (error) => {
+    console.error('Operation failed', error);
 });
 
 readStream.pipe(writeStream);

@@ -1,11 +1,10 @@
 import { writeFile, readFile } from 'fs/promises';
 
 export const createFile = async (fileName) => {
-    const file = `${process.cwd()}/${fileName}`
     try {
-        await readFile(file);
-        console.error('FS operation failed')
+        const file = `${process.cwd()}\\${fileName}`;
+        await writeFile(file, "");
     }  catch (error) {
-        await writeFile(file);
+        console.error('Operation failed', error);
     }
 };
