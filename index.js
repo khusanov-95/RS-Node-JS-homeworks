@@ -2,6 +2,8 @@
 import {welcomeUser} from './services/welcomeUser.js';
 import { getCurrentPath } from './services/getCurrentPath.js';
 import { goToDirectory } from './services/goToDirectory.js';
+import { readFile } from './services/readFile.js';
+import { createFile } from './services/createFile.js';
 
 welcomeUser();
 // getCurrentPath()
@@ -24,13 +26,13 @@ const write = async () => {
             goToDirectory(command.split(' ')[1])
         }
         if(command.includes('ls')) {
-            goToDirectory(command.split(' ')[1])
+   
         }
         if(command.includes('cat ')) {
-    
+            readFile(command.split(' ')[1])
         }
         if(command.includes('add')) {
-    
+            createFile(command.split(' ')[1])
         }
         if(command.includes('rn')) {
     
