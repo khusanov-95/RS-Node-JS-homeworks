@@ -18,7 +18,7 @@ welcomeUser();
 
 const prinCurrentDirectoryMessage = (directory) => console.log(`You are currently in ${directory}`)
 
-const write = async () => {
+const app = async () => {
     prinCurrentDirectoryMessage(process.cwd())
 
     stdin.on("data", async function(data) {
@@ -65,10 +65,19 @@ const write = async () => {
             calculateHash(command.split(' ')[1])
         }
         else if(script.includes('compress')) {
-            compressFile(command.split(' ')[1], command.split(' ')[2])
+            try {
+                await compressFile(command.split(' ')[1], command.split(' ')[2])
+              } catch (error) {
+                console.error('Operation failed', error);
+              }
         }
         else if(script.includes('decompress')) {
-            decompressFile(command.split(' ')[1], command.split(' ')[2])
+            try {
+                await decompressFile(command.split(' ')[1], command.split(' ')[2])
+              } catch (error) {
+                console.error('Operation failed', error);
+              }
+           
         } else {
             console.log('Invalid input')
         }
@@ -76,4 +85,4 @@ const write = async () => {
     })
 };
 
-await write();
+await app();
