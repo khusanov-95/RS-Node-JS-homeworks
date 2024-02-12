@@ -23,7 +23,7 @@ interface User {
 
 let users: User[] = [];
 
-const server = http.createServer((req, res) => {
+export const server = http.createServer((req, res) => {
     const {url, method} = req;
     const parsedUrl = parse(url || '', true);
     try {
@@ -132,6 +132,6 @@ const server = http.createServer((req, res) => {
  
 });
 
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// server.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}`);
+// });
