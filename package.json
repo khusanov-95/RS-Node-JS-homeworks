@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon --exec ts-node src/app.ts",
-    "start:prod": "nodemon --exec ts-node src/app.ts"
+    "start:prod": "npm run build",
+    "build": "tsc"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
     "eslint": "^8.43.0",
@@ -29,6 +31,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.2",
     "uuid": "^9.0.1"
   }
 }
