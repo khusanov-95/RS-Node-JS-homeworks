@@ -39,6 +39,11 @@ export const createServer = () => {
             req.on('end', () => {
                 try {
                     const newUser: User = JSON.parse(body);
+                    if (!newUser || !newUser.username || !newUser.age || !newUser.hobbies) {
+                        res.writeHead(400, { 'Content-Type': 'text/plain' });
+                        res.end('Missing required fields');
+                        return;
+                    }
                     const createdUser = createUser(newUser);
                     res.writeHead(400, { 'Content-Type': 'text/plain' });
                     res.end(JSON.stringify(createdUser));
@@ -103,8 +108,12 @@ export const createServer = () => {
         res.end('Internal Server Error');
     }
     });
-    return server;
-    // server.listen(PORT, () => {
-    //     console.log(`Server is running on port ${PORT}`);
-    // });
+    // comment for load balancer
+    server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+
+    return server;    
 } 
+// comment for load balancer
+createServer()
